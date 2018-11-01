@@ -3,6 +3,7 @@ for details on configuring this project to bundle and minify static web assets. 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #303030;
 }
 
 /* Wrapping element */
@@ -28,10 +29,86 @@ body {
     margin: 15px;
 }
 
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.tasks {
+    width: 300px;
+    height: 300px;
+    border: solid 1px white;
+}
+
+#upper-row {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    margin-top: 50px;
+}
+
+#lower-row {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    margin-top: 50px;
+}
+
+#user-tasks-one {
+    order: 2;
+}
+
+#user-tasks-two {
+    margin: 0 40px;
+    margin-top: 40px;
+    order: 1;
+}
+
+#user-tasks-three {
+    margin: 0 40px;
+    margin-top: 65px;
+    order: 3;
+}
+
+@media screen and (max-width: 1200px) {
+    .flex-container {
+        display: flex;
+        flex-direction: column;
+        color: white;
+    }
+
+    #upper-row {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+    }
+
+    #lower-row {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+    }
+
+    #user-tasks-one {
+        order: 1;
+        margin-top: 5px;
+    }
+
+    #user-tasks-two {
+        margin: 0 auto;
+        order: 2;
+        margin-top: 5px;
+    }
+
+    #user-tasks-three {
+        margin: 0 auto;
+        order: 3;
+        margin-top: 5px;
+    }
+
+    #tasks-pool
+    {
+        margin-top: 25px;
     }
 }
