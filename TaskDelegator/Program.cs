@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using TaskDelegator.Data;
 
 namespace TaskDelegator
 {
@@ -14,11 +16,29 @@ namespace TaskDelegator
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
+            var host = BuildWebHost(args);
+
+            RunSeeding(host);
+
+            host.Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+        //seeds the database with mock data
+        private static void RunSeeding(IWebHost host)
+        {
+            var scopeFactory = host.Services.GetService<IServiceScopeFactory>();
+
+            using (var scope = scopeFactory.CreateScope())
+            {
+                var seeder = scope.ServiceProvider.GetService<TaskDelegatorSeeder>();
+                seeder.Seed();
+            }
+        }
+
+        public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+                .UseStartup<Startup>()
+                .Build();
     }
 }
+
