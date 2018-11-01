@@ -15,32 +15,32 @@ namespace TaskDelegator.Controllers
     [Route("api/[controller]")]
     public class AssignmentsController : ControllerBase
     {
-        private readonly TaskDelegatorContext _context;
+        private readonly ITaskDelegatorRepository _repository;
 
-        public AssignmentsController(TaskDelegatorContext context)
+        public AssignmentsController(ITaskDelegatorRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         //Returns every tasks that is not assigned to particular user
         [HttpGet]
         public IEnumerable<Assignment> GetNotDelegatedTasks()
         {
-            var response = _context.Assignments.Include(a => a.User).Where(t => t.User == null);
+            var response = _repository.GetAllAssingments().Where(a => a.User == null);
             return response;
         }
 
         // GET: api/Assignments/5
         [HttpGet("{id}")]
         //[Route("api/[controller]/{id}")]
-        public async Task<ActionResult> GetAssignment([FromRoute] int id)
+        public  ActionResult GetAssignment([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var assignment = await _context.Assignments.Include(a => a.User).Where(a => a.ID == id).FirstOrDefaultAsync();
+            var assignment = _repository.GetAssignmentById(id);
 
             if (assignment == null)
             {
@@ -53,16 +53,16 @@ namespace TaskDelegator.Controllers
         [HttpPatch("{id}")]
         public IActionResult PatchAssignment([FromRoute] int id, [FromQuery]int _id)
         {
-            var assigment = _context.Assignments.Include(a => a.User).Where(a => a.ID == id).FirstOrDefault();
-            if (assigment == null)
+            var assigngment = _repository.GetAssignmentById(id);
+            if (assigngment == null)
                 return NotFound();
             else
             {
-                var user = _context.Users.Include(u => u.Assignments).Where(u => u.ID == _id).FirstOrDefault();
-      
-                assigment.User = user;
+                var user = _repository.GetUserById(_id);
 
-               _context.SaveChanges();
+                assigngment.User = user;
+
+                _repository.SaveAll();
             }    
 
             return Ok();

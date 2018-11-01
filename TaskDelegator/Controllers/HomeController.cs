@@ -12,24 +12,24 @@ namespace TaskDelegator.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly TaskDelegatorContext _context;
+        private readonly ITaskDelegatorRepository _repository;
 
-        public HomeController(TaskDelegatorContext context)
+        public HomeController(ITaskDelegatorRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         public IActionResult Index()
         {
             //var assigmentModels = new HttpGetAttribute("d");
 
-            var model = new TasksDistributorViewModel
-            {
-                Assignments = _context.Assignments.Include(a => a.User).Where(a => a.User == null),
-                Users = _context.Users.Include(u => u.Assignments)
-            };
+            //var model = new TasksDistributorViewModel
+            //{
+            //    Assignments = _context.Assignments.Include(a => a.User).Where(a => a.User == null),
+            //    Users = _context.Users.Include(u => u.Assignments)
+            //};
 
-            return View(model);
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

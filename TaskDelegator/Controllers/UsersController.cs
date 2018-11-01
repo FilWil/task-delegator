@@ -14,36 +14,32 @@ namespace TaskDelegator.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly TaskDelegatorContext _context;
+        private readonly ITaskDelegatorRepository _repository;
 
-        public UsersController(TaskDelegatorContext context)
+        public UsersController(ITaskDelegatorRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
         // GET: api/Users
         [HttpGet]
         public IEnumerable<User> GetUsers()
         {
-            var users = _context.Users
-                .Include(u => u.Assignments);
+            var users = _repository.GetAllUsers();
 
-            return users.ToList();
+            return users;
         }
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetUser([FromRoute] int id)
+        public ActionResult GetUser([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = await _context.Users
-                .Include(u => u.Assignments)
-                .Where(u => u.ID == id)
-                .FirstOrDefaultAsync();
+            var user = _repository.GetUserById(id);
 
             if (user == null)
             {
