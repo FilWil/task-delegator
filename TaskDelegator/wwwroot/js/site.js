@@ -103,13 +103,14 @@ function taskDelegate(response)
 }
 
 //Helper function for taskDelegate() creating DOM structure
-function createListElement(tasksPoolList, task)
+function createListElement(tasksPoolList, task, userId)
 {
     let container = document.createElement("div");
     container.classList.add("tasks-pool-list-item");
     let textNode = document.createTextNode(task.name);
     container.appendChild(textNode);
     container.id = task.id;
+    //container.dataset.userId = userId;
     tasksPoolList.appendChild(container);
 }
 
@@ -145,10 +146,11 @@ var drake = dragula([
 );
 
 drake.on('drop', (e) => {
-    let siblings = e.parentNode.childNodes;
-    let userId = siblings[2].innerHTML;
-
+    let userId = e.parentNode.dataset.containerId;
+    console.log(userId);
+    console.log("AssingmentId: " + e.id + " userId: " + userId);
     UpdateAssingments(e.id, userId);
+
 });
 
 function UpdateAssingments(id, userId) {
