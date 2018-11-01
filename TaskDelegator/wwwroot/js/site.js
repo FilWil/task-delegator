@@ -1,21 +1,40 @@
-﻿//AJAX for updating tasks pool
-//$(document).ready(function () {
-//    $.ajax({
-//        type: "GET",
-//        url: "api/Assignments/",
-//        contentType: "application/json; charset=utf-8",
-//        dataType: "json",
-//        success: function (data) {             
-//            console.log(data);
-//        }, //End of AJAX Success function  
+﻿function tasksBuilder(response) {
 
-//        failure: function (data) {
-//            alert(data.responseText);
-//        }, //End of AJAX failure function  
-//        error: function (data) {
-//            alert(data.responseText);
-//        } //End of AJAX error function  
+    let tasksPoolList = document.querySelector("#tasks-pool-list");
 
-//    });
-//});
+    for (const task of response) {
 
+        let container = document.createElement("li");
+        container.classList.add("tasks-pool-list-item");
+        let textNode = document.createTextNode(task.name);
+
+        container.appendChild(textNode);
+
+        tasksPoolList.appendChild(container);
+    }
+}
+
+
+(function () {
+    let xhr = new XMLHttpRequest();
+
+    //GET / url / async
+    xhr.open("GET", "api/Assignments/", true);
+
+    xhr.addEventListener('load', function () {
+
+        let response = [];
+
+        try {
+            response = JSON.parse(this.response);
+        } catch (e) {
+            console.error("Parsing JSON didn't work");
+        }
+
+        tasksBuilder(response);
+
+    });
+
+    //send connection
+    xhr.send();
+}());

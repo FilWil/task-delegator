@@ -32,6 +32,8 @@ body {
 
 .tasks {
     width: 300px;
+    max-height: 300px;
+    overflow-y: auto;
     height: 300px;
     border: solid 1px white;
 }
@@ -64,6 +66,28 @@ body {
     margin: 0 40px;
     margin-top: 65px;
     order: 3;
+}
+
+.user-tasks {
+    position: relative;
+}
+
+.tasks-pool-list-item
+{
+    border: solid 1px white;
+    margin-top: 5px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+#number {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 40px;
+    margin-right: 10px;
 }
 
 @media screen and (max-width: 1200px) {
@@ -107,3 +131,10 @@ body {
         margin-top: 25px;
     }
 }
+
+/*hides scrollbar on google chrome*/
+::-webkit-scrollbar {
+    /*display: none;*/
+    opacity: 0.2;
+}
+
