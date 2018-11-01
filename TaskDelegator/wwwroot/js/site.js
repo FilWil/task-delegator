@@ -1,11 +1,12 @@
 ﻿function tasksBuilder(response) {
 
-    let tasksPoolList = document.querySelector("#tasks-pool-list");
+    let tasksPoolList = document.querySelector("#tasks-pool");
 
     for (const task of response) {
 
-        let container = document.createElement("li");
+        let container = document.createElement("div");
         container.classList.add("tasks-pool-list-item");
+        container.id = task.id;
         let textNode = document.createTextNode(task.name);
 
         container.appendChild(textNode);
@@ -48,7 +49,7 @@ function DelegateAssignments() {
     xhr.open("GET", "api/Users/", true);
 
     xhr.addEventListener('load', function () {
-        console.log("delegate");
+
         let response = [];
 
         try {
@@ -77,21 +78,21 @@ function taskDelegate(response)
             case 1:
                 for (const task of user.assignments)
                 {
-                    let tasksPoolList = document.querySelector("#tasks-pool-list-user-one");
+                    let tasksPoolList = document.querySelector("#user-tasks-one");
                     createListElement(tasksPoolList, task);
                 }
                 break;
             case 2:
                 for (const task of user.assignments)
                 {
-                    let tasksPoolList = document.querySelector("#tasks-pool-list-user-two");
+                    let tasksPoolList = document.querySelector("#user-tasks-two");
                     createListElement(tasksPoolList, task);
                 }
                 break;
             case 3:
                 for (const task of user.assignments)
                 {
-                    let tasksPoolList = document.querySelector("#tasks-pool-list-user-three");
+                    let tasksPoolList = document.querySelector("#user-tasks-three");
                     createListElement(tasksPoolList, task);
                 }
                 break;
@@ -104,10 +105,11 @@ function taskDelegate(response)
 //Helper function for taskDelegate() creating DOM structure
 function createListElement(tasksPoolList, task)
 {
-    let container = document.createElement("li");
+    let container = document.createElement("div");
     container.classList.add("tasks-pool-list-item");
     let textNode = document.createTextNode(task.name);
     container.appendChild(textNode);
+    container.id = task.id;
     tasksPoolList.appendChild(container);
 }
 
@@ -134,10 +136,32 @@ let dragulaOptions = {
 };
 
 //Containers for dragula (drag and drop library) which allows dragging items between them
-dragula([
-    document.querySelector('#tasks-pool-list'),
-    document.querySelector('#tasks-pool-list-user-one'),
-    document.querySelector('#tasks-pool-list-user-two'),
-    document.querySelector('#tasks-pool-list-user-three')],
+var drake = dragula([
+    document.querySelector('#tasks-pool'),
+    document.querySelector('#user-tasks-one'),
+    document.querySelector('#user-tasks-two'),
+    document.querySelector('#user-tasks-three')],
     dragulaOptions
 );
+
+drake.on('drop', (e) => {
+    let siblings = e.parentNode.childNodes;
+    let userId = siblings[2].innerHTML;
+
+    UpdateAssingments(e.id, userId);
+});
+
+function UpdateAssingments(id, userId) {
+
+    let xhr = new XMLHttpRequest();
+
+    //PUT / url / async
+    if (userId >= 1) {
+        xhr.open("PUT", `api/Assignments/${id}?_id=${userId}`, true);
+    } else {
+        xhr.open("PUT", `api/Assignments/${id}`, true);
+    }
+
+    //send connection
+    xhr.send();
+}

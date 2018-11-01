@@ -50,8 +50,8 @@ namespace TaskDelegator.Controllers
             return Ok(assignment);
         }
 
-        [HttpPatch("{id}")]
-        public IActionResult PatchAssignment([FromRoute] int id, [FromQuery]int _id)
+        [HttpPut("{id}")]
+        public IActionResult PutAssignment([FromRoute] int id, [FromQuery]int _id)
         {
             var assigngment = _repository.GetAssignmentById(id);
             if (assigngment == null)
