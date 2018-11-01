@@ -28,7 +28,7 @@ namespace TaskDelegator.Controllers
             var users = _context.Users
                 .Include(u => u.Assignments);
 
-            return users;
+            return users.ToList();
         }
 
         // GET: api/Users/5

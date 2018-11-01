@@ -33,7 +33,7 @@ namespace TaskDelegator.Controllers
         // GET: api/Assignments/5
         [HttpGet("{id}")]
         //[Route("api/[controller]/{id}")]
-        public async Task<IActionResult> GetAssignment([FromRoute] int id)
+        public async Task<ActionResult> GetAssignment([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
