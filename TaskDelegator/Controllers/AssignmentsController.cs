@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TaskDelegator.Data;
 using TaskDelegator.Models;
 
 namespace TaskDelegator.Controllers
 {
     [ApiController]
+    [Route("api/[controller]")]
     public class AssignmentsController : ControllerBase
     {
         private readonly TaskDelegatorContext _context;
@@ -22,16 +25,16 @@ namespace TaskDelegator.Controllers
         // GET: api/Tasks
         //Returns every tasks that is not assigned to particular user
         [HttpGet]
-        [Route("api/[controller]")]
+        //[Route("api/[controller]")]
         public IEnumerable<Assignment> GetNotDelegatedTasks()
         {
-            var response = _context.Assignments.Where(t => t.User == null);
+            var response = _context.Assignments.Include(a => a.User).Where(t => t.User == null);
             return response;
         }
 
         // GET: api/Tasks/5
-        [HttpGet]
-        [Route("api/[controller]/{id}")]
+        [HttpGet("{id}")]
+        //[Route("api/[controller]/{id}")]
         public async Task<IActionResult> GetAssignment([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -39,7 +42,7 @@ namespace TaskDelegator.Controllers
                 return BadRequest(ModelState);
             }
 
-            var assignment = await _context.Assignments.FindAsync(id);
+            var assignment = await _context.Assignments.Include(a => a.User).Where(a => a.ID == id).FirstOrDefaultAsync();
 
             if (assignment == null)
             {
@@ -47,6 +50,24 @@ namespace TaskDelegator.Controllers
             }
 
             return Ok(assignment);
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult PatchAssignment([FromRoute] int id, [FromQuery]int _id)
+        {
+            var assigment = _context.Assignments.Include(a => a.User).Where(a => a.ID == id).FirstOrDefault();
+            if (assigment == null)
+                return NotFound();
+            else
+            {
+                var user = _context.Users.Include(u => u.Assignments).Where(u => u.ID == _id).FirstOrDefault();
+      
+                assigment.User = user;
+
+               _context.SaveChanges();
+            }    
+
+            return Ok();
         }
     }
 }

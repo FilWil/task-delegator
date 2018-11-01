@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TaskDelegator.Data;
 using TaskDelegator.Models;
 
@@ -24,20 +25,25 @@ namespace TaskDelegator.Controllers
         [HttpGet]
         public IEnumerable<User> GetUsers()
         {
+            var users = _context.Users
+                .Include(u => u.Assignments);
 
-            return _context.Users;
+            return users;
         }
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser([FromRoute] int id)
+        public async Task<ActionResult> GetUser([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users
+                .Include(u => u.Assignments)
+                .Where(u => u.ID == id)
+                .FirstOrDefaultAsync();
 
             if (user == null)
             {
@@ -46,6 +52,5 @@ namespace TaskDelegator.Controllers
 
             return Ok(user);
         }
-
     }
 }
