@@ -1,4 +1,21 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿//AJAX for updating tasks pool
+//$(document).ready(function () {
+//    $.ajax({
+//        type: "GET",
+//        url: "api/Assignments/",
+//        contentType: "application/json; charset=utf-8",
+//        dataType: "json",
+//        success: function (data) {             
+//            console.log(data);
+//        }, //End of AJAX Success function  
 
-// Write your JavaScript code.
+//        failure: function (data) {
+//            alert(data.responseText);
+//        }, //End of AJAX failure function  
+//        error: function (data) {
+//            alert(data.responseText);
+//        } //End of AJAX error function  
+
+//    });
+//});
+

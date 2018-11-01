@@ -22,17 +22,15 @@ namespace TaskDelegator.Controllers
             _context = context;
         }
 
-        // GET: api/Tasks
         //Returns every tasks that is not assigned to particular user
         [HttpGet]
-        //[Route("api/[controller]")]
         public IEnumerable<Assignment> GetNotDelegatedTasks()
         {
             var response = _context.Assignments.Include(a => a.User).Where(t => t.User == null);
             return response;
         }
 
-        // GET: api/Tasks/5
+        // GET: api/Assignments/5
         [HttpGet("{id}")]
         //[Route("api/[controller]/{id}")]
         public async Task<IActionResult> GetAssignment([FromRoute] int id)
