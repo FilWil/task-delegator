@@ -15,7 +15,6 @@ body {
     padding-right: 15px; 
 }
 
-
 .flex-container {
     display: flex;
     flex-direction: column;
@@ -38,7 +37,13 @@ body {
     background-color: #252525;
 }
 
-.task-highlighted{
+.tasks-container {
+    width: 300px;
+    max-height: 300px;
+    height: 300px;
+}
+
+.task-highlighted {
     background: #404040;
 }
 
@@ -56,24 +61,23 @@ body {
     margin-top: 50px;
 }
 
-#user-tasks-one {
+#user-tasks-one-container {
+    position: relative;
     order: 2;
 }
 
-#user-tasks-two {
+#user-tasks-two-container {
+    position: relative;
     margin: 0 40px;
     margin-top: 40px;
     order: 1;
 }
 
-#user-tasks-three {
+#user-tasks-three-container {
+    position: relative;
     margin: 0 40px;
     margin-top: 65px;
     order: 3;
-}
-
-.user-tasks {
-    position: relative;
 }
 
 /* Item created by js code */
@@ -84,14 +88,14 @@ body {
     margin-bottom: 1px;
 }
 
-#number {
+.number {
     position: absolute;
     bottom: 0;
     right: 0;
     font-size: 40px;
-    margin-right: 10px;
+    margin-right: 10px; 
+    opacity: 0.7;
 }
-
 
 @media screen and (max-width: 1200px) {
     .flex-container {
@@ -112,18 +116,18 @@ body {
         margin: 0 auto;
     }
 
-    #user-tasks-one {
+    #user-tasks-one-container {
         order: 1;
         margin-top: 5px;
     }
 
-    #user-tasks-two {
+    #user-tasks-two-container {
         margin: 0 auto;
         order: 2;
         margin-top: 5px;
     }
 
-    #user-tasks-three {
+    #user-tasks-three-container {
         margin: 0 auto;
         order: 3;
         margin-top: 5px;
