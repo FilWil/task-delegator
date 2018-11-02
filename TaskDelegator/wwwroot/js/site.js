@@ -114,6 +114,7 @@ function createListElement(tasksPoolList, task, userId)
     tasksPoolList.appendChild(container);
 }
 
+//Options for dragula library
 let dragulaOptions = {
     isContainer: function (el) {
         return false; // only elements in drake.containers will be taken into account
@@ -145,13 +146,20 @@ var drake = dragula([
     dragulaOptions
 );
 
+//event that gets triggered on element drop into the container ---> it updates assingment in db
 drake.on('drop', (e) => {
     let userId = e.parentNode.dataset.containerId;
-    console.log(userId);
-    console.log("AssingmentId: " + e.id + " userId: " + userId);
     UpdateAssingments(e.id, userId);
-
 });
+
+//event triggers function highlighting item for 200ms
+drake.on('dragend', (e) =>
+    $(function () {
+            $(e).addClass('task-highlighted');
+            setTimeout(function () {
+                $(e).removeClass('task-highlighted');
+        }, 200);
+}));
 
 function UpdateAssingments(id, userId) {
 

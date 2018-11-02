@@ -21,14 +21,6 @@ namespace TaskDelegator.Controllers
 
         public IActionResult Index()
         {
-            //var assigmentModels = new HttpGetAttribute("d");
-
-            //var model = new TasksDistributorViewModel
-            //{
-            //    Assignments = _context.Assignments.Include(a => a.User).Where(a => a.User == null),
-            //    Users = _context.Users.Include(u => u.Assignments)
-            //};
-
             return View();
         }
 
