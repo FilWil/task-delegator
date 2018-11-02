@@ -6,6 +6,7 @@ Communication beetween database and frontend was made using AJAX requests and RE
 Drag and drop events were handled with use of Dragula library.
 
 # Short instruction on how to start an app on localhost server:
+App needs .NET Core SDK with at least 2.1.3 version (tested on 2.1.403)
 
 1. Download project files from GitHub repository
 2. Change connection string to database in appsettings.json (change server for existing server and provide database name)
