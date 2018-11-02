@@ -5,7 +5,7 @@ Communication beetween database and frontend was made using AJAX requests and RE
 
 Drag and drop events were handled with use of Dragula library.
 
-# Short instruction how to start an app on localhost server:
+# Short instruction on how to start an app on localhost server:
 
 1. Download project files from GitHub repository
 2. Change connection string to database in appsettings.json (change server for existing server and provide database name)
