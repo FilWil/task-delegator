@@ -23,3 +23,6 @@ Drag and drop events were handled with use of Dragula library.
    
    
    ![RWD](https://i.imgur.com/ygd047i.png "RWD")
+   
+   ![Scrollable](https://i.imgur.com/X10Nnei.png "Scrollable")
+   
