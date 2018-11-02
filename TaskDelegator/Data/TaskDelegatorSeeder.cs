@@ -40,21 +40,21 @@ namespace TaskDelegator.Data
             {
                 var assignments = new Assignment[]
                 {
-                    new Assignment { Name = "Assignment1", Description = "Do Something1" },
-                    new Assignment { Name = "Assignment2", Description = "Do something2" },
-                    new Assignment { Name = "Assignment3", Description = "Do something3" },
-                    new Assignment { Name = "Assignment4", Description = "Do something4" },
-                    new Assignment { Name = "Assignment5", Description = "Do something5" },
-                    new Assignment { Name = "Assignment6", Description = "Do something6" },
-                    new Assignment { Name = "Assignment7", Description = "Do something7" },
-                    new Assignment { Name = "Assignment8", Description = "Do something8" },
-                    new Assignment { Name = "Assignment9", Description = "Do something9" },
-                    new Assignment { Name = "Assignment10", Description = "Do something10" },
-                    new Assignment { Name = "Assignment11", Description = "Do something11" },
-                    new Assignment { Name = "Assignment12", Description = "Do something12" },
-                    new Assignment { Name = "Assignment13", Description = "Do something13" },
-                    new Assignment { Name = "Assignment14", Description = "Do something14" },
-                    new Assignment { Name = "Assignment15", Description = "Do something15" }
+                    new Assignment { Name = "Prepare a presentation", Description = "Do Something1" },
+                    new Assignment { Name = "Continous improvements", Description = "Do something2" },
+                    new Assignment { Name = "Bug fixes", Description = "Do something3" },
+                    new Assignment { Name = "Design the database", Description = "Do something4" },
+                    new Assignment { Name = "Update .NET Framework", Description = "Do something5" },
+                    new Assignment { Name = "Fix dependency problems", Description = "Do something6" },
+                    new Assignment { Name = "Implement error handling", Description = "Do something7" },
+                    new Assignment { Name = "Merge branch with Master", Description = "Do something8" },
+                    new Assignment { Name = "SharePoint improvements", Description = "Do something9" },
+                    new Assignment { Name = "Create indexes on db", Description = "Do something10" },
+                    new Assignment { Name = "Prepare backend for a new app", Description = "Do something11" },
+                    new Assignment { Name = "Configure services", Description = "Do something12" },
+                    new Assignment { Name = "Deploy an app to Azure", Description = "Do something13" },
+                    new Assignment { Name = "Prepare Unit Tests", Description = "Do something14" },
+                    new Assignment { Name = "Update documentation", Description = "Do something15" }
                 };
 
                 foreach (var assignment in assignments)

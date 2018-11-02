@@ -35,6 +35,7 @@ body {
     border-radius: 12px;
     -webkit-box-shadow: 6px 6px 3px 0px rgba(0,0,0,1); /*Only for chrome*/
     background-color: #252525;
+    touch-action: none;
 }
 
 .tasks-container {
@@ -52,6 +53,10 @@ body {
     flex-direction: row;
     margin: auto;
     margin-top: 50px;
+}
+
+.possible-target-container {
+    background: #404040;
 }
 
 #lower-row {

@@ -161,6 +161,16 @@ drake.on('dragend', (e) =>
         }, 200);
 }));
 
+//highlight container under drag and drop element
+drake.on('over', (el, container, source) => {
+    container.classList.add('possible-target-container');
+});
+
+//remove highlighting from container under drag and drop element
+drake.on('out', (el, container, source) => {
+    container.classList.remove('possible-target-container');
+});
+
 function UpdateAssingments(id, userId) {
 
     let xhr = new XMLHttpRequest();
