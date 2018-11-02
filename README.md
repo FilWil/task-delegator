@@ -3,6 +3,8 @@
 App for delegating tasks from pool between users using drag and drop. 
 Communication beetween database and frontend was made using AJAX requests and REST API.
 
+Drag and drop events were handled with use of Dragula library.
+
 # Short instruction how to start an app on localhost server:
 
 1. Download project files from GitHub repository
