@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,12 @@ namespace TaskDelegator.Data
     public class TaskDelegatorRepository : ITaskDelegatorRepository
     {
         private readonly TaskDelegatorContext _context;
+        private readonly ILogger<TaskDelegatorRepository> _logger;
 
-        public TaskDelegatorRepository(TaskDelegatorContext context)
+        public TaskDelegatorRepository(TaskDelegatorContext context, ILogger<TaskDelegatorRepository> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public IEnumerable<Assignment> GetAllAssingments()
@@ -22,8 +25,9 @@ namespace TaskDelegator.Data
             {
                 return _context.Assignments.Include(a => a.User).ToList();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError($"Failed to GetAllAssingments {ex}");
                 return null;
             }
         }
@@ -34,8 +38,9 @@ namespace TaskDelegator.Data
             {
                 return _context.Users.Include(u => u.Assignments).ToList();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError($"Failed to GetAllUsers {ex}");
                 return null;
             }
         }
@@ -46,8 +51,9 @@ namespace TaskDelegator.Data
             {
                 return _context.Assignments.Include(a => a.User).Where(a => a.ID == id).FirstOrDefault();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError($"Failed to GetAssignmentById {ex}");
                 return null;
             }
         }
@@ -58,8 +64,9 @@ namespace TaskDelegator.Data
             {
                 return _context.Users.Include(u => u.Assignments).Where(u => u.ID == id).FirstOrDefault();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError($"Failed to GetUserById {ex}");
                 return null;
             }
         }
